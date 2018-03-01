@@ -1,0 +1,19 @@
+﻿body
+{
+}
+
+.announcement-list {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: coral;
+    height: 400px;
+    width: 400px;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.h4-list {
+    margin-bottom: 15px;
+    align-content: center;
+}
