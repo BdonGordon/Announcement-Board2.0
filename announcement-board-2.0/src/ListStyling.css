@@ -24,8 +24,8 @@ label {
 
 .custom-range {
     margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 15%;
 }
 
 .custom-radio {

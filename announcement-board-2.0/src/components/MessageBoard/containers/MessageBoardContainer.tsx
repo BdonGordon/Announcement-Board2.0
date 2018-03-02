@@ -1,5 +1,5 @@
 ﻿import MessageBoard from '../components/MessageBoard';
-import { IAnnouncement } from '../../../models/Announcements';
+import { IAnnouncement} from '../../../models/Announcements';
 
 export namespace MessageBoardProps {
     export interface IStateProps {
@@ -14,6 +14,8 @@ export namespace MessageBoardProps {
 
     //in this case, we will just want to define IAnnouncement variable in order to access properties of IAnnouncement
     export interface IState {
+        timeStamp: string;
+        message: string;
         isCaps: boolean;
         isCycle: boolean; //true = Cycles, false = Duration
     }
