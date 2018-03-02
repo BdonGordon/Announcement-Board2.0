@@ -2,13 +2,27 @@
 import '../../../ListStyling.css';
 import { MessageBoardProps } from '../containers/MessageBoardContainer';
 import MessageBoardContainer from '../containers/MessageBoardContainer';
-import { IAnnouncement } from '../../../models/Announcements';
+import { IAnnouncement, Cycle, Duration } from '../../../models/Announcements';
+
+type LifeType = Cycle | Duration;
+
+const initialCycle: Cycle = {
+    type: "cycle",
+    cycleNo: 0
+};
+
+const initialDuration: Duration = {
+    type: "duration",
+    durationType: "Minutes",
+    durationTime: 0
+};
 
 const initialState: MessageBoardProps.IState = {
     timeStamp: '',
     message: '',
     isCaps: false,
     isCycle: true,
+    lifeType: initialCycle || initialDuration
 };
 
 class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoardProps.IState> {
@@ -16,6 +30,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         super(props);
 
         this.state = initialState;
+        this.state.lifeType.type = "cycle"; //set as default
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.handleCapsToggle = this.handleCapsToggle.bind(this);
         this.handlePost = this.handlePost.bind(this);
@@ -50,21 +65,25 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      * @param e
      */
     handleLifeTypeChange(e: React.FormEvent<HTMLInputElement>) {
+        var lifeType: LifeType;
         var isCycle: boolean;
-        
-        if (e.currentTarget.value === "Cycles") {
+
+        if (e.currentTarget.value === "cycle") {
             isCycle = true;
+            lifeType = {
+                type: "cycle"
+            };
         }
         else {
             isCycle = false;
+            lifeType = {
+                type: "duration"
+            };
         }
-
         this.setState({
             isCycle: isCycle,
-            
+            lifeType: lifeType
         });
-
-        return isCycle;
     }
 
     /**
@@ -72,7 +91,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      */
     toggleLifeType() {
         var lifeType: boolean = this.state.isCycle;
-
+        console.log(this.state.lifeType);
         return lifeType;
     }
 
@@ -81,19 +100,46 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      * @param e
      */
     handleDurationTypeChange(e: React.FormEvent<HTMLInputElement>) {
-        var durationType: string = e.currentTarget.value;
+        var durationSelect: string = e.currentTarget.value;
+        let duration: Duration;
 
-        switch (durationType) {
+        switch (durationSelect) {
             case "Minutes":
-                console.log("Minutes");
+                //console.log("Minutes");
                 break;
 
             case "Hours":
-                console.log("Hours");
+                //console.log("Hours");
                 break;
 
             case "Days":
-                console.log("Days");
+                //console.log("Days");
+                break;
+
+            default:
+                break;
+        }
+
+        duration = {
+            type: "duration",
+            durationType: durationSelect
+        };
+
+        this.setState({
+            lifeType: duration
+        });
+    }
+
+    handleSliderChange(e: React.FormEvent<HTMLInputElement>) {
+        let lifeType = this.state.lifeType;
+
+        switch (lifeType.type) {
+            case "cycle":
+                console.log("cycle");
+                break;
+
+            case "duration":
+                console.log("duration");
                 break;
 
             default:
@@ -101,20 +147,14 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         }
     }
 
-    handleSliderChange(e: React.FormEvent<HTMLInputElement>) {
-        e.currentTarget.max = "100";
-        console.log(e.currentTarget.value);
-    }
-
     handlePost(e: React.FormEvent<HTMLButtonElement>) {
         let newAnnouncement: IAnnouncement = {
             timeStamp: new Date().toLocaleString(),
             message: this.state.message,
-            caps: this.state.isCaps,
-            lifeType: this.state.isCycle
+            caps: this.state.isCaps
         };
 
-        console.log(newAnnouncement.timeStamp + " && " + newAnnouncement.message + " && " + newAnnouncement.caps + " && " + newAnnouncement.lifeType);
+        console.log(newAnnouncement.timeStamp + " && " + newAnnouncement.message + " && " + newAnnouncement.caps + " && " );
     }
 
     render() {
@@ -132,9 +172,9 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                     <br />
                     <br />
                     <label> Cycles: </label>
-                    <input type="radio" name="life-type" className="life-type-radio" defaultChecked={true} value="Cycles" onChange={this.handleLifeTypeChange} />
+                    <input type="radio" name="life-type" className="life-type-radio" defaultChecked={true} value="cycle" onChange={this.handleLifeTypeChange} />
                     <label> Duration: </label>
-                    <input type="radio" name="life-type" value="Duration" onChange={this.handleLifeTypeChange} />
+                    <input type="radio" name="life-type" value="duration" onChange={this.handleLifeTypeChange} />
                     <br />
                 </div>
 
@@ -165,6 +205,5 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         );
     }
 }
-
 
 export default MessageBoard;

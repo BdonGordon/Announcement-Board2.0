@@ -1,5 +1,7 @@
 ﻿import MessageBoard from '../components/MessageBoard';
-import { IAnnouncement} from '../../../models/Announcements';
+import { IAnnouncement, Cycle, Duration } from '../../../models/Announcements';
+
+type LifeType = Cycle | Duration;
 
 export namespace MessageBoardProps {
     export interface IStateProps {
@@ -17,7 +19,8 @@ export namespace MessageBoardProps {
         timeStamp: string;
         message: string;
         isCaps: boolean;
-        isCycle: boolean; //true = Cycles, false = Duration
+        isCycle: boolean;
+        lifeType?: LifeType;
     }
 }
 
