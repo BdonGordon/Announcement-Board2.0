@@ -17,3 +17,22 @@
     margin-bottom: 15px;
     align-content: center;
 }
+
+label {
+    color: white;
+}
+
+.custom-range {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+
+.custom-radio {
+    margin-left: 10px; 
+    margin-right: 10px;
+}
+
+.life-type-radio {
+    margin-right: 20px;
+}
