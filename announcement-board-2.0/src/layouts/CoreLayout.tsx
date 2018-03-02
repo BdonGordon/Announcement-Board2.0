@@ -1,10 +1,11 @@
 import * as React from 'react';
+import MessageBoard from '../components/MessageBoard/containers/MessageBoardContainer';
 
 class CoreLayout extends React.Component {
     render() {
         return (
             <div>
-                <h4> Annoucement Board </h4>
+                <MessageBoard />
             </div>
         );
     }
