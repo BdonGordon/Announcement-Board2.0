@@ -91,7 +91,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      */
     toggleLifeType() {
         var lifeType: boolean = this.state.isCycle;
-        console.log(this.state.lifeType);
+        //console.log(this.state.lifeType.type);
         return lifeType;
     }
 
@@ -101,24 +101,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      */
     handleDurationTypeChange(e: React.FormEvent<HTMLInputElement>) {
         var durationSelect: string = e.currentTarget.value;
-        let duration: Duration;
-
-        switch (durationSelect) {
-            case "Minutes":
-                //console.log("Minutes");
-                break;
-
-            case "Hours":
-                //console.log("Hours");
-                break;
-
-            case "Days":
-                //console.log("Days");
-                break;
-
-            default:
-                break;
-        }
+        let duration: Duration = initialDuration;
 
         duration = {
             type: "duration",
@@ -130,21 +113,34 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         });
     }
 
+    /**
+     * CHECKPOINT: There is a delay in the value change when clicking a value
+     * @param e
+     */
     handleSliderChange(e: React.FormEvent<HTMLInputElement>) {
         let lifeType = this.state.lifeType;
-
+        
         switch (lifeType.type) {
             case "cycle":
-                console.log("cycle");
+                e.currentTarget.max = "100";
                 break;
 
             case "duration":
-                console.log("duration");
+                //get the duration type (mins/hrs/days) some other way; maybe through props or state?
+                //if (this.state.type === "Minutes") e.currentTarget.max = "59"....
+                e.currentTarget.max = "59";
+
                 break;
 
             default:
                 break;
         }
+
+        lifeType = {
+            type: lifeType.type,
+            cycleNo: e.currentTarget.value
+        };
+        console.log(lifeType);
     }
 
     handlePost(e: React.FormEvent<HTMLButtonElement>) {
@@ -172,7 +168,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                     <br />
                     <br />
                     <label> Cycles: </label>
-                    <input type="radio" name="life-type" className="life-type-radio" defaultChecked={true} value="cycle" onChange={this.handleLifeTypeChange} />
+                    <input type="radio" name="life-type" className="life-type-radio" defaultChecked={true} value="cycle" onChange={this.handleLifeTypeChange}/>
                     <label> Duration: </label>
                     <input type="radio" name="life-type" value="duration" onChange={this.handleLifeTypeChange} />
                     <br />
@@ -205,5 +201,6 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         );
     }
 }
+
 
 export default MessageBoard;

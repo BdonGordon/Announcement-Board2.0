@@ -9,7 +9,7 @@ export interface IAnnouncement {
 
 export interface Cycle {
     type: string;
-    cycleNo?: number;
+    cycleNo: number;
 }
 
 export interface Duration {

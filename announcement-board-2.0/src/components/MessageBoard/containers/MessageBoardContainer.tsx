@@ -1,11 +1,11 @@
 ﻿import MessageBoard from '../components/MessageBoard';
 import { IAnnouncement, Cycle, Duration } from '../../../models/Announcements';
+import { connect } from 'react-redux';
 
 type LifeType = Cycle | Duration;
 
 export namespace MessageBoardProps {
     export interface IStateProps {
-        
     }
 
     export interface IDispatchProps {
