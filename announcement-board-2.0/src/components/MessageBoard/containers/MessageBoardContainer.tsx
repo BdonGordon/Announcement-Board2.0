@@ -1,5 +1,5 @@
 ﻿import MessageBoard from '../components/MessageBoard';
-import { IAnnouncement, Cycle, Duration } from '../../../models/Announcements';
+import { IMessageBoard, Cycle, Duration } from '../../../models/MessageBoard';
 import { connect } from 'react-redux';
 
 type LifeType = Cycle | Duration;

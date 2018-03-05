@@ -2,19 +2,19 @@
 import '../../../ListStyling.css';
 import { MessageBoardProps } from '../containers/MessageBoardContainer';
 import MessageBoardContainer from '../containers/MessageBoardContainer';
-import { IAnnouncement, Cycle, Duration } from '../../../models/Announcements';
+import { IMessageBoard, Cycle, Duration } from '../../../models/MessageBoard';
 
 type LifeType = Cycle | Duration;
 
 const initialCycle: Cycle = {
     type: "cycle",
-    cycleNo: 0
+    cycleNo: 1
 };
 
 const initialDuration: Duration = {
     type: "duration",
     durationType: "Minutes",
-    durationTime: 0
+    durationTime: 1
 };
 
 const initialState: MessageBoardProps.IState = {
@@ -174,7 +174,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                 break;
         }
 
-        let announcementPost: IAnnouncement = {
+        let announcementPost: IMessageBoard = {
             timeStamp: new Date().toLocaleString(),
             message: this.state.message,
             caps: this.state.isCaps,

@@ -2,7 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout';
 import { Provider, Store } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-//import makeRootReducer from '../store/reducers';
+import makeRootReducer from '../store/reducers';
 import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 
@@ -15,13 +15,14 @@ const middlewares: any = [
     thunk
 ];
 
-//export const store = createStore(makeRootReducer, composeEnhancers(applyMiddleware(...middlewares))
-//    );
+export const store = createStore(
+    makeRootReducer, composeEnhancers(applyMiddleware(...middlewares))
+);
 
 class AppContainer extends React.Component {
     render() {
         return (
-            <Provider>
+            <Provider store={store}>
                 <CoreLayout />
             </Provider>
         );
