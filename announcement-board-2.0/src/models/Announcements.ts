@@ -1,6 +1,7 @@
 ﻿type LifeType = Cycle | Duration;
 
 export interface IAnnouncement {
+    messageID?: number; //not needed since there's no DB to keep track of the ID
     timeStamp: string;
     message: string;
     caps?: boolean;
@@ -8,12 +9,12 @@ export interface IAnnouncement {
 }
 
 export interface Cycle {
-    type: string;
+    type?: "cycle";
     cycleNo: number;
 }
 
 export interface Duration {
-    type: string;
+    type?: "duration";
     durationType?: string;
     durationTime?: number;
 }

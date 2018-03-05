@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\announcement-board-2.0",
-    "\\announcement-board-2.0\\src"
+    "\\announcement-board-2.0\\src",
+    "\\announcement-board-2.0\\src\\components",
+    "\\announcement-board-2.0\\src\\components\\MessageBoard",
+    "\\announcement-board-2.0\\src\\components\\MessageBoard\\containers",
+    "\\announcement-board-2.0\\src\\models"
   ],
-  "SelectedNode": "\\announcement-board-2.0\\src",
+  "SelectedNode": "\\announcement-board-2.0\\tsconfig.json",
   "PreviewInSolutionExplorer": false
 }

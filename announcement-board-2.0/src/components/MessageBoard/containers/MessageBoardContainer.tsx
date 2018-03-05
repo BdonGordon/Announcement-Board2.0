@@ -20,7 +20,9 @@ export namespace MessageBoardProps {
         message: string;
         isCaps: boolean;
         isCycle: boolean;
-        lifeType?: LifeType;
+        lifeType?: string;
+        durationType?: string;
+        lifeLength: string;
     }
 }
 

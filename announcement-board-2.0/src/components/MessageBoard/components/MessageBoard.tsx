@@ -22,7 +22,9 @@ const initialState: MessageBoardProps.IState = {
     message: '',
     isCaps: false,
     isCycle: true,
-    lifeType: initialCycle || initialDuration
+    lifeType: initialCycle.type, //initialize lifeType to "cycle" 
+    durationType: "Minutes",
+    lifeLength: ''
 };
 
 class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoardProps.IState> {
@@ -30,26 +32,35 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         super(props);
 
         this.state = initialState;
-        this.state.lifeType.type = "cycle"; //set as default
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.handleCapsToggle = this.handleCapsToggle.bind(this);
-        this.handlePost = this.handlePost.bind(this);
         this.handleLifeTypeChange = this.handleLifeTypeChange.bind(this);
         this.toggleLifeType = this.toggleLifeType.bind(this);
+        this.handlePost = this.handlePost.bind(this);
         this.handleDurationTypeChange = this.handleDurationTypeChange.bind(this);
-        this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.handleLifeTimeChange = this.handleLifeTimeChange.bind(this);
+        this.handleLabelChange = this.handleLabelChange.bind(this);
     }
 
-    handleMessageChange(e: React.FormEvent<HTMLInputElement>) {
-        var message: string = e.currentTarget.value;
+    componentDidMount() {
+        //console.log(this.state.lifeType);
+    }
 
-        this.setState({
-            message: message
-        });
+    componentDidUpdate() {
+        //console.log(this.state.lifeType);
     }
 
     /**
-     * Simply checks if the allcaps checkbox is checked or not and sets the state
+     * Sets the state.message here
+     * @param e
+     */
+    handleMessageChange(e: React.FormEvent<HTMLInputElement>) {
+        var message: string = e.currentTarget.value;
+        this.setState({ message: message });
+    }
+
+    /**
+     * Simply checks if the allcaps checkbox is checked or not and sets the state.isCaps
      * @param e
      */
     handleCapsToggle(e: React.FormEvent<HTMLInputElement>) {
@@ -61,28 +72,23 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
     }
 
     /**
-     * lifeType of the announcement: cycle or duration. 
+     * lifeType of the announcement: cycle or duration. state.lifeType and state.isCycle is set here 
      * @param e
      */
     handleLifeTypeChange(e: React.FormEvent<HTMLInputElement>) {
-        var lifeType: LifeType;
-        var isCycle: boolean;
+        let lifeValue = e.currentTarget.value;
+        let isCycle = this.state.isCycle; //initially false
 
-        if (e.currentTarget.value === "cycle") {
+        if (lifeValue === "cycle") {
             isCycle = true;
-            lifeType = {
-                type: "cycle"
-            };
         }
         else {
             isCycle = false;
-            lifeType = {
-                type: "duration"
-            };
         }
+
         this.setState({
             isCycle: isCycle,
-            lifeType: lifeType
+            lifeType: lifeValue
         });
     }
 
@@ -90,67 +96,92 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      * Gets the lifeType of cycles or duration to hide or render the radio buttons for minutes/hrs/days of the Duration lifeType
      */
     toggleLifeType() {
-        var lifeType: boolean = this.state.isCycle;
-        //console.log(this.state.lifeType.type);
-        return lifeType;
+        return this.state.isCycle;
     }
 
     /**
-     * Make sure to set the durationType to "Minutes" somehow
+     * state.durationType is set here.
      * @param e
      */
     handleDurationTypeChange(e: React.FormEvent<HTMLInputElement>) {
-        var durationSelect: string = e.currentTarget.value;
-        let duration: Duration = initialDuration;
-
-        duration = {
-            type: "duration",
-            durationType: durationSelect
-        };
-
+        let durationType = e.currentTarget.value;
         this.setState({
-            lifeType: duration
+            durationType: durationType
         });
     }
 
-    /**
-     * CHECKPOINT: There is a delay in the value change when clicking a value
-     * @param e
-     */
-    handleSliderChange(e: React.FormEvent<HTMLInputElement>) {
+    handleLabelChange() {
+        if (this.state.lifeType === initialCycle.type) {
+            return "Cycle(s)";
+        }
+        return this.state.durationType;
+    }
+
+    handleLifeTimeChange(e: React.FormEvent<HTMLInputElement>) {
         let lifeType = this.state.lifeType;
-        
-        switch (lifeType.type) {
-            case "cycle":
+
+        switch (lifeType) {
+            case initialCycle.type:
                 e.currentTarget.max = "100";
                 break;
 
-            case "duration":
-                //get the duration type (mins/hrs/days) some other way; maybe through props or state?
-                //if (this.state.type === "Minutes") e.currentTarget.max = "59"....
-                e.currentTarget.max = "59";
-
+            case initialDuration.type:
+                switch (this.state.durationType) {
+                    case "Minutes":
+                        e.currentTarget.max = "59";
+                        break;
+                    case "Hours":
+                        e.currentTarget.max = "23";
+                        break;
+                    case "Days":
+                        e.currentTarget.max = "365";
+                        break;
+                    default:
+                        break;
+                }
                 break;
 
             default:
                 break;
         }
 
-        lifeType = {
-            type: lifeType.type,
-            cycleNo: e.currentTarget.value
-        };
-        console.log(lifeType);
+        this.setState({
+            lifeLength: e.currentTarget.value
+        });
     }
 
     handlePost(e: React.FormEvent<HTMLButtonElement>) {
-        let newAnnouncement: IAnnouncement = {
+        let stateLife = this.state.lifeType;
+        let lifeType: LifeType;
+
+        switch (stateLife) {
+            case initialCycle.type:
+                lifeType = {
+                    type: stateLife,
+                    cycleNo: +this.state.lifeLength
+                };
+                break;
+
+            case initialDuration.type:
+                lifeType = {
+                    type: stateLife,
+                    durationType: this.state.durationType,
+                    durationTime: +this.state.lifeLength
+                };
+                break;
+
+            default:
+                break;
+        }
+
+        let announcementPost: IAnnouncement = {
             timeStamp: new Date().toLocaleString(),
             message: this.state.message,
-            caps: this.state.isCaps
+            caps: this.state.isCaps,
+            lifeType: lifeType
         };
 
-        console.log(newAnnouncement.timeStamp + " && " + newAnnouncement.message + " && " + newAnnouncement.caps + " && " );
+        console.log(announcementPost);
     }
 
     render() {
@@ -176,10 +207,12 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
 
                 {/*Range slider and radio buttons div*/}
                 <div>
-                    <input type="range" className="custom-range" min="1" onChange={this.handleSliderChange} defaultValue="1" />
-                    <input type="radio" name="duration-type" className="custom-radio" defaultChecked={true} hidden={this.toggleLifeType()} value="Minutes" onChange={this.handleDurationTypeChange} />
-                    <input type="radio" name="duration-type" className="custom-radio" hidden={this.toggleLifeType()} value="Hours" onChange={this.handleDurationTypeChange}/>
-                    <input type="radio" name="duration-type" className="custom-radio" hidden={this.toggleLifeType()} value="Days" onChange={this.handleDurationTypeChange}/>
+                    <input type="number" className="life-length-input" min="1" defaultValue="1" onChange={this.handleLifeTimeChange} />
+                    <label>{this.handleLabelChange()}</label>
+                    <input type="radio" name="duration-type" className="custom-radio" defaultChecked={true} hidden={this.toggleLifeType()} value="Minutes" onChange={this.handleDurationTypeChange}/>
+                    <input type="radio" name="duration-type" className="custom-radio" hidden={this.toggleLifeType()} value="Hours" onChange={this.handleDurationTypeChange} /> 
+                    <input type="radio" name="duration-type" className="custom-radio" hidden={this.toggleLifeType()} value="Days" onChange={this.handleDurationTypeChange} />
+                    <br />
                 </div>
                 <br />
 
@@ -197,7 +230,6 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                 </div>
 
             </div>
-
         );
     }
 }
