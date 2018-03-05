@@ -181,7 +181,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
             lifeType: lifeType
         };
 
-        console.log(announcementPost);
+        this.props.addMessageBoard(announcementPost);
     }
 
     render() {
