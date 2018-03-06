@@ -5,9 +5,8 @@
     "\\announcement-board-2.0\\src",
     "\\announcement-board-2.0\\src\\components",
     "\\announcement-board-2.0\\src\\components\\MessageBoard",
-    "\\announcement-board-2.0\\src\\components\\MessageBoard\\containers",
-    "\\announcement-board-2.0\\src\\models"
+    "\\announcement-board-2.0\\src\\components\\MessageBoard\\components"
   ],
-  "SelectedNode": "\\announcement-board-2.0\\tsconfig.json",
+  "SelectedNode": "\\announcement-board-2.0\\src\\components\\MessageBoard\\components\\MessageBoard.tsx",
   "PreviewInSolutionExplorer": false
 }

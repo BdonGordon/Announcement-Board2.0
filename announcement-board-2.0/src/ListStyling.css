@@ -18,8 +18,12 @@
     align-content: center;
 }
 
-label {
+.label1 {
     color: white;
+}
+
+.label2-announcement {
+    color: black;
 }
 
 .custom-range {
@@ -42,3 +46,4 @@ label {
     margin-top: 12px;
     margin-right: 5px;
 }
+

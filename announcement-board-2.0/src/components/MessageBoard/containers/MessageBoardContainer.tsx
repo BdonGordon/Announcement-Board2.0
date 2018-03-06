@@ -27,6 +27,8 @@ export namespace MessageBoardProps {
         lifeType?: string;
         durationType?: string;
         lifeLength: string;
+        canPost?: boolean;
+        isValid?: boolean;
     }
 }
 

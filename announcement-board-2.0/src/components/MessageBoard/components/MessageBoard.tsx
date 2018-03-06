@@ -24,7 +24,9 @@ const initialState: MessageBoardProps.IState = {
     isCycle: true,
     lifeType: initialCycle.type, //initialize lifeType to "cycle" 
     durationType: "Minutes",
-    lifeLength: ''
+    lifeLength: '',
+    canPost: true,
+    isValid: true
 };
 
 class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoardProps.IState> {
@@ -40,14 +42,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         this.handleDurationTypeChange = this.handleDurationTypeChange.bind(this);
         this.handleLifeTimeChange = this.handleLifeTimeChange.bind(this);
         this.handleLabelChange = this.handleLabelChange.bind(this);
-    }
-
-    componentDidMount() {
-        //console.log(this.state.lifeType);
-    }
-
-    componentDidUpdate() {
-        //console.log(this.state.lifeType);
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
     /**
@@ -55,8 +50,37 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      * @param e
      */
     handleMessageChange(e: React.FormEvent<HTMLInputElement>) {
-        var message: string = e.currentTarget.value;
-        this.setState({ message: message });
+        //var message: string = e.currentTarget.value;
+        //this.setState({ message: message });
+        let message: string = this.state.message;
+        message = e.currentTarget.value; // this is where we get the inputted value from the InputElement
+
+        if (message.length < 5) {
+            this.setState({
+                isValid: true
+            });
+        }
+        else {
+            //Now we can setState legally by doing so:
+            this.setState({
+                message: message,
+                isValid: false
+            });
+        }
+    }
+
+
+    /**
+     * Enables and disables to input area
+     * @param e
+     */
+    handleEdit(e: React.FormEvent<HTMLButtonElement>) {
+        let clearAnnouncement = this.state.message;
+        clearAnnouncement = '';
+        this.setState({
+            message: clearAnnouncement,
+            canPost: false
+        });
     }
 
     /**
@@ -180,27 +204,31 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
             caps: this.state.isCaps,
             lifeType: lifeType
         };
-
         this.props.addMessageBoard(announcementPost);
+
+        this.setState({
+            isValid: true,
+            canPost: true
+        });
     }
 
     render() {
         return (
             <div>
                 <h5> Announcements </h5>
-                <input type="text" className="textarea-dimens" onChange={this.handleMessageChange} />
+                <input type="text" className="textarea-dimens" onChange={this.handleMessageChange} disabled={this.state.canPost}/>
                 <br />
                 <br />
 
                 {/*Option div*/}
                 <div>
-                    <label> All Caps: </label>
+                    <label className="label1"> All Caps: </label>
                     <input type="checkbox" name="caps" onChange={this.handleCapsToggle} />
                     <br />
                     <br />
-                    <label> Cycles: </label>
+                    <label className="label1"> Cycles: </label>
                     <input type="radio" name="life-type" className="life-type-radio" defaultChecked={true} value="cycle" onChange={this.handleLifeTypeChange}/>
-                    <label> Duration: </label>
+                    <label className="label1"> Duration: </label>
                     <input type="radio" name="life-type" value="duration" onChange={this.handleLifeTypeChange} />
                     <br />
                 </div>
@@ -208,7 +236,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                 {/*Range slider and radio buttons div*/}
                 <div>
                     <input type="number" className="life-length-input" min="1" defaultValue="1" onChange={this.handleLifeTimeChange} />
-                    <label>{this.handleLabelChange()}</label>
+                    <label className="label1">{this.handleLabelChange()}</label>
                     <input type="radio" name="duration-type" className="custom-radio" defaultChecked={true} hidden={this.toggleLifeType()} value="Minutes" onChange={this.handleDurationTypeChange}/>
                     <input type="radio" name="duration-type" className="custom-radio" hidden={this.toggleLifeType()} value="Hours" onChange={this.handleDurationTypeChange} /> 
                     <input type="radio" name="duration-type" className="custom-radio" hidden={this.toggleLifeType()} value="Days" onChange={this.handleDurationTypeChange} />
@@ -218,11 +246,11 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
 
                 {/*Button div*/}
                 <div>
-                    <button className="submit-button" onClick={this.handlePost}> Post Announcement</button>
-                    <button className="submit-button"> Enter Announcement</button>
+                    <button className="submit-button" onClick={this.handlePost} disabled={this.state.isValid}> Post Announcement</button>
+                    <button className="submit-button" onClick={this.handleEdit}> Enter Announcement</button>
                 </div>
                 <div className="announcement-strip">
-                    <label> Hello </label>
+                    <UpdateLabel posted={this.state.canPost} announcement={this.state.message} />
                 </div>
 
                 <div className="announcement-list">
@@ -232,6 +260,13 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
             </div>
         );
     }
+}
+
+function UpdateLabel(props: any) {
+    if (props.posted) {
+        return <label className="label2-announcement">{props.announcement}</label>;
+    }
+    return null;
 }
 
 
