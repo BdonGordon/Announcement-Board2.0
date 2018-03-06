@@ -52,3 +52,15 @@
     margin-right: 5px;
 }
 
+.msgboard-list-div {
+    background-color: white;
+    width: 50%;
+    height: 25px;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.msgboard-msg-style {
+    padding-top: 3px;
+}
+

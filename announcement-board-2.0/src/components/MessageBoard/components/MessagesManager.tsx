@@ -15,9 +15,9 @@ class MessagesManager extends React.Component<MessagesManagerProps.IProps, Messa
         }
         return this.props.messagesBoard.map((message) => {
             return (
-                <li key={message.timeStamp} onClick={() => this.props.deleteMessageBoard(message)}>
-                    {message.message}
-                </li>
+                <div key={message.timeStamp} onClick={() => this.props.deleteMessageBoard(message)}>
+                    <h4>{message.message}</h4>
+                </div>
             );
         });
     }
@@ -30,12 +30,17 @@ class MessagesManager extends React.Component<MessagesManagerProps.IProps, Messa
                 <h4>Messageboard Manager</h4>
                 <div>
                     <ul>
-                        {this.createMessageBoardList()}
+                        <div className="msgboard-list-div">
+                            <p className="msgboard-msg-style">Hello</p>
+                        </div>
                     </ul>
                 </div>
             </div>
         );
     }
 }
+
+
+//{this.createMessageBoardList()}
 
 export default MessagesManager;
