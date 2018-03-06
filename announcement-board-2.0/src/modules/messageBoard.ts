@@ -23,6 +23,17 @@ export function addMessageBoard(messageBoard: IMessageBoard): MessageBoardAction
     };
 }
 
+export function deleteMessageBoard(messageBoard: IMessageBoard): MessageBoardAction {
+    console.log(messageBoard.message + " && " + messageBoard.timeStamp);
+
+    return {
+        type: ANNOUNCEMENT_REMOVE,
+        payload: {
+            announcement: messageBoard
+        }
+    };
+}
+
 type MessageBoardActions = MessageBoardAction & MessagesBoardAction;
 
 /**
@@ -40,6 +51,17 @@ export function messageBoardReducer(state: IMessageBoardState = initialState, ac
                 message: action.payload,
                 messagesBoard: list
             });
+
+        case ANNOUNCEMENT_REMOVE:
+            let deletedMessage: IMessageBoard = action.payload.announcement;
+            //don't wan't to delete the message from memory (or database). Just filter it out
+            let newMessagesBoard: Array<IMessageBoard> = state.messagesBoard.filter((msg: IMessageBoard) => msg.timeStamp !== deletedMessage.timeStamp);
+
+            return Object.assign({}, state, {
+                message: action.payload,
+                messagesBoard: newMessagesBoard
+            });
+            
 
         default:
             return state;

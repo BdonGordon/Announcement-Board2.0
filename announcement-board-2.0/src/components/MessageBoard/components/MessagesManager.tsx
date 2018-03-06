@@ -15,7 +15,9 @@ class MessagesManager extends React.Component<MessagesManagerProps.IProps, Messa
         }
         return this.props.messagesBoard.map((message) => {
             return (
-                <li key={message.timeStamp}>{message.message}</li>
+                <li key={message.timeStamp} onClick={() => this.props.deleteMessageBoard(message)}>
+                    {message.message}
+                </li>
             );
         });
     }
