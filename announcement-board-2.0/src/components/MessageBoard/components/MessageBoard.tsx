@@ -51,22 +51,21 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      */
     handleMessageChange(e: React.FormEvent<HTMLInputElement>) {
         //var message: string = e.currentTarget.value;
-        //this.setState({ message: message });
-        let message: string;
-        message = e.currentTarget.value; // this is where we get the inputted value from the InputElement
+        //this.setState({ message: message })
+        let message = e.currentTarget.value;
+        let isValid = this.state.isValid;
 
         if (message.length < 5) {
-            this.setState({
-                isValid: true
-            });
+            isValid = true; //Post Announcement button is disabled until the char length is greater than 4
         }
         else {
-            //Now we can setState legally by doing so:
-            this.setState({
-                message: message,
-                isValid: false
-            });
+            isValid = false;
         }
+
+        this.setState({
+            message: message,
+            isValid: isValid
+        });
     }
 
     /**
@@ -74,10 +73,10 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
      * @param e
      */
     handleEdit(e: React.FormEvent<HTMLButtonElement>) {
-        //let clearAnnouncement = this.state.message;
-        //clearAnnouncement = '';
+        let clearAnnouncement = this.state.message;
+        clearAnnouncement = '';
         this.setState({
-            //message: clearAnnouncement,
+            message: clearAnnouncement,
             canPost: false
         });
     }
@@ -227,7 +226,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
             <div>
                 <h5> Announcements </h5>
                 {/*Message input*/}
-                <input type="text" className="textarea-dimens" onChange={this.handleMessageChange} disabled={this.state.canPost} />
+                <input type="text" className="textarea-dimens" onChange={this.handleMessageChange} disabled={this.state.canPost} value={this.state.message} />
                 <br />
                 <br />
 
