@@ -26,6 +26,11 @@
     color: black;
 }
 
+.label3-announcement-caps {
+    color: black;
+    text-transform: uppercase;
+}
+
 .custom-range {
     margin-top: 20px;
     margin-bottom: 10px;

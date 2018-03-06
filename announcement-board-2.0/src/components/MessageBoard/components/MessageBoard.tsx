@@ -260,7 +260,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                     <button className="submit-button" onClick={this.handleEdit}> Enter Announcement</button>
                 </div>
                 <div className="announcement-strip">
-                    <UpdateLabel posted={this.state.canPost} announcement={this.state.message} />
+                    <UpdateLabel posted={this.state.canPost} announcement={this.state.message} caps={this.state.isCaps} />
                 </div>
 
                 <div className="announcement-list">
@@ -274,6 +274,9 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
 
 function UpdateLabel(props: any) {
     if (props.posted) {
+        if (props.caps) {
+            return <label className="label3-announcement-caps">{props.announcement}</label>;
+        }
         return <label className="label2-announcement">{props.announcement}</label>;
     }
     return null;
