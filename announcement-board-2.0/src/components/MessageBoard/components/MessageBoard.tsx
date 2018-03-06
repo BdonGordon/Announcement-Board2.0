@@ -3,7 +3,7 @@ import '../../../ListStyling.css';
 import { MessageBoardProps } from '../containers/MessageBoardContainer';
 import MessageBoardContainer from '../containers/MessageBoardContainer';
 import { IMessageBoard, Cycle, Duration } from '../../../models/MessageBoard';
-import MessagesManager from './MessagesManager';
+import MessagesManager from '../containers/MessagesManagerContainer';
 
 type LifeType = Cycle | Duration;
 

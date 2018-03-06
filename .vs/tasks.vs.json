@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-announcement-board-2",
+      "appliesTo": "announcement-board-2.0/",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-announcement-board-2",
+      "appliesTo": "announcement-board-2.0/",
+      "type": "launch"
+    }
+  ]
+}
