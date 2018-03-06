@@ -18,8 +18,17 @@
     align-content: center;
 }
 
-label {
+.label1 {
     color: white;
+}
+
+.label2-announcement {
+    color: black;
+}
+
+.label3-announcement-caps {
+    color: black;
+    text-transform: uppercase;
 }
 
 .custom-range {
@@ -36,3 +45,10 @@ label {
 .life-type-radio {
     margin-right: 20px;
 }
+
+.life-length-input {
+    width: 3%;
+    margin-top: 12px;
+    margin-right: 5px;
+}
+

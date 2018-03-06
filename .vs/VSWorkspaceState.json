@@ -1,8 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\announcement-board-2.0"
+    "\\announcement-board-2.0",
+    "\\announcement-board-2.0\\src",
+    "\\announcement-board-2.0\\src\\components",
+    "\\announcement-board-2.0\\src\\components\\MessageBoard",
+    "\\announcement-board-2.0\\src\\components\\MessageBoard\\components"
   ],
-  "SelectedNode": "\\announcement-board-2.0",
+  "SelectedNode": "\\announcement-board-2.0\\src\\ListStyling.css",
   "PreviewInSolutionExplorer": false
 }
