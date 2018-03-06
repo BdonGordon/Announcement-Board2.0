@@ -25,7 +25,7 @@ const initialState: MessageBoardProps.IState = {
     lifeType: initialCycle.type, //initialize lifeType to "cycle" 
     durationType: "Minutes",
     lifeLength: '',
-    canPost: true,
+    canPost: true, //TRUE === Message input IS DISABLED && FALSE === Message input is ENABLED
     isValid: true
 };
 
@@ -52,7 +52,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
     handleMessageChange(e: React.FormEvent<HTMLInputElement>) {
         //var message: string = e.currentTarget.value;
         //this.setState({ message: message });
-        let message: string = this.state.message;
+        let message: string;
         message = e.currentTarget.value; // this is where we get the inputted value from the InputElement
 
         if (message.length < 5) {
@@ -69,16 +69,15 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         }
     }
 
-
     /**
      * Enables and disables to input area
      * @param e
      */
     handleEdit(e: React.FormEvent<HTMLButtonElement>) {
-        let clearAnnouncement = this.state.message;
-        clearAnnouncement = '';
+        //let clearAnnouncement = this.state.message;
+        //clearAnnouncement = '';
         this.setState({
-            message: clearAnnouncement,
+            //message: clearAnnouncement,
             canPost: false
         });
     }
@@ -134,6 +133,9 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         });
     }
 
+    /**
+     * Changes the label beside the number input based on Cycle, Duration (min/hr/day)
+     */
     handleLabelChange() {
         if (this.state.lifeType === initialCycle.type) {
             return "Cycle(s)";
@@ -141,6 +143,10 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         return this.state.durationType;
     }
 
+    /**
+     * Sets a maximum limit based on the lifetype that the user chooses for the announcement
+     * @param e
+     */
     handleLifeTimeChange(e: React.FormEvent<HTMLInputElement>) {
         let lifeType = this.state.lifeType;
 
@@ -174,6 +180,10 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         });
     }
 
+    /**
+     * This simply is the submission of the IMessageBoard object into the redux list
+     * @param e
+     */
     handlePost(e: React.FormEvent<HTMLButtonElement>) {
         let stateLife = this.state.lifeType;
         let lifeType: LifeType;
@@ -216,7 +226,8 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
         return (
             <div>
                 <h5> Announcements </h5>
-                <input type="text" className="textarea-dimens" onChange={this.handleMessageChange} disabled={this.state.canPost}/>
+                {/*Message input*/}
+                <input type="text" className="textarea-dimens" onChange={this.handleMessageChange} disabled={this.state.canPost} />
                 <br />
                 <br />
 
@@ -233,7 +244,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                     <br />
                 </div>
 
-                {/*Range slider and radio buttons div*/}
+                {/*Number input and radio buttons div*/}
                 <div>
                     <input type="number" className="life-length-input" min="1" defaultValue="1" onChange={this.handleLifeTimeChange} />
                     <label className="label1">{this.handleLabelChange()}</label>
