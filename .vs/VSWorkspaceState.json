@@ -2,11 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\announcement-board-2.0",
+    "\\announcement-board-2.0\\public",
     "\\announcement-board-2.0\\src",
     "\\announcement-board-2.0\\src\\components",
     "\\announcement-board-2.0\\src\\components\\MessageBoard",
-    "\\announcement-board-2.0\\src\\components\\MessageBoard\\components"
+    "\\announcement-board-2.0\\src\\components\\MessageBoard\\components",
+    "\\announcement-board-2.0\\src\\components\\MessageBoard\\containers"
   ],
-  "SelectedNode": "\\announcement-board-2.0\\src\\ListStyling.css",
+  "SelectedNode": "\\announcement-board-2.0\\src\\components\\MessageBoard\\containers\\MessageBoardContainer.tsx",
   "PreviewInSolutionExplorer": false
 }

@@ -3,6 +3,7 @@ import '../../../ListStyling.css';
 import { MessageBoardProps } from '../containers/MessageBoardContainer';
 import MessageBoardContainer from '../containers/MessageBoardContainer';
 import { IMessageBoard, Cycle, Duration } from '../../../models/MessageBoard';
+import MessagesManager from './MessagesManager';
 
 type LifeType = Cycle | Duration;
 
@@ -264,7 +265,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                 </div>
 
                 <div className="announcement-list">
-                    <h4 className="h4-list"> Announcement List </h4>
+                    <MessagesManager />
                 </div>
 
             </div>
