@@ -15,8 +15,10 @@ class MessagesManager extends React.Component<MessagesManagerProps.IProps, Messa
         }
         return this.props.messagesBoard.map((message) => {
             return (
-                <div key={message.timeStamp} onClick={() => this.props.deleteMessageBoard(message)}>
-                    <h4>{message.message}</h4>
+                <div key={message.timeStamp} className="msgboard-list-div">
+                    <p className="p-inline-msgboard">{message.message}</p>
+                    <button className="msgboard-edit-button" onClick={() => console.log(message.message)}>Edit</button>
+                    <button className="msgboard-delete-button" onClick={() => this.props.deleteMessageBoard(message)}>Delete</button>
                 </div>
             );
         });
@@ -30,9 +32,14 @@ class MessagesManager extends React.Component<MessagesManagerProps.IProps, Messa
                 <h4>Messageboard Manager</h4>
                 <div>
                     <ul>
+                        {this.createMessageBoardList()}
+                        {/*
                         <div className="msgboard-list-div">
-                            <p className="msgboard-msg-style">Hello</p>
+                            <p className="p-inline-msgboard">Hello</p>
+                            <button className="msgboard-edit-button">Edit</button>
+                            <button className="msgboard-delete-button">Delete</button>
                         </div>
+                            */}
                     </ul>
                 </div>
             </div>
@@ -42,5 +49,20 @@ class MessagesManager extends React.Component<MessagesManagerProps.IProps, Messa
 
 
 //{this.createMessageBoardList()}
+
+/**
+createMessageBoardList() {
+        if (this.props.messagesBoard.length < 1) {
+            return null;
+        }
+        return this.props.messagesBoard.map((message) => {
+            return (
+                <div key={message.timeStamp} onClick={() => this.props.deleteMessageBoard(message)}>
+                    <h4>{message.message}</h4>
+                </div>
+            );
+        });
+    }
+**/
 
 export default MessagesManager;

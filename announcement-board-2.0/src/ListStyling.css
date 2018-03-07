@@ -53,14 +53,28 @@
 }
 
 .msgboard-list-div {
-    background-color: white;
+    background-color: antiquewhite;
     width: 50%;
     height: 25px;
     text-align: left;
     padding-left: 15px;
+    padding-top: 4px;
 }
 
-.msgboard-msg-style {
-    padding-top: 3px;
+.p-inline-msgboard {
+    display: inline;
+    color: black;
 }
+
+.msgboard-delete-button {
+    position: absolute;
+    right: 30px;
+}
+
+.msgboard-edit-button {
+    position: absolute;
+    right: 90px;
+}
+
+
 
