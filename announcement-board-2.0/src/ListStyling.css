@@ -24,6 +24,22 @@
 
 .label2-announcement {
     color: black;
+    animation-name: animate-message;
+    animation-iteration-count: 4;
+}
+
+@keyframes animate-message {
+    0% {
+        background-color: red;
+        left: 0px;
+        top: 0px;
+    }
+
+    100% {
+        background-color: blue;
+        left: 100%;
+        top: 0px;
+    }
 }
 
 .label3-announcement-caps {
@@ -75,6 +91,7 @@
     position: absolute;
     right: 90px;
 }
+
 
 
 
