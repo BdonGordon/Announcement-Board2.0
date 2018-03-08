@@ -266,6 +266,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
 
                 <div className="announcement-list">
                     <MessagesManager />
+                    <Testing />
                 </div>
 
             </div>
@@ -278,10 +279,34 @@ function UpdateLabel(props: any) {
         if (props.caps) {
             return <label className="label3-announcement-caps">{props.announcement}</label>;
         }
-        return <label className="label2-announcement">{props.announcement}</label>;
+        return <p style={scrollRight}>{props.announcement}</p>;
+       // return <p style={scrollRight}>{props.announcenment}</p>;
+        //return <p className="scroll-right-p">{props.announcement}</p>;
+        //className="label2-announcement"
     }
     return null;
 }
 
+const divStyle = {
+    color: 'green'
+};
+
+const scrollRight = {
+    color: 'blue',
+    position: 'absolute' as 'absolute',
+    width: '100%',
+    height: '100%',
+    margin: 0,
+    lineHeight: '50px',
+    textAlign: 'center',
+    transform: 'translate(-100%)',
+    animationName: 'scroll-right',
+    animationDuration: '10s',
+    animationIterationCount: '2'
+};
+
+function Testing() {
+    return <p style={scrollRight}>Word</p>;
+}
 
 export default MessageBoard;

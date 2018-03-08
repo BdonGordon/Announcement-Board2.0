@@ -92,6 +92,37 @@
     right: 90px;
 }
 
+/*Scrolling text*/
+.announcement-strip {
+    background-color: cornsilk;
+    margin-top: 80px;
+    padding-top: 15px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
 
+.scroll-right-p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    /* Starting position */
+    transform: translateX(-100%);
+    /* Apply animation to this element  scroll-right 10s linear infinite;*/
+    animation-name: scroll-right;
+    animation-duration: 5s;
+    animation-iteration-count: 2;
+}
 
+@keyframes scroll-right {
+    0% {
+        transform: translateX(-60%);
+    }
 
+    100% {
+        transform: translateX(60%);
+    }
+}
