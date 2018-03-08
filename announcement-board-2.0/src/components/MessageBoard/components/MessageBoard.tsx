@@ -4,6 +4,7 @@ import { MessageBoardProps } from '../containers/MessageBoardContainer';
 import MessageBoardContainer from '../containers/MessageBoardContainer';
 import { IMessageBoard, Cycle, Duration } from '../../../models/MessageBoard';
 import MessagesManager from '../containers/MessagesManagerContainer';
+import MessageBoardClock from './MessageBoardClock';
 
 type LifeType = Cycle | Duration;
 
@@ -266,6 +267,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
 
                 <div className="announcement-list">
                     <MessagesManager />
+                    <MessageBoardClock />
                 </div>
 
             </div>
@@ -276,7 +278,7 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
 function UpdateLabel(props: any) {
     if (props.posted) {
         if (props.caps) {
-            return <label className="label3-announcement-caps">{props.announcement}</label>;
+            return <p style={{ animationIterationCount: props.cycle, textTransform: 'uppercase' }} className="scroll-right-p">{props.announcement}</p>;
         }
         return <p style={{ animationIterationCount: props.cycle }} className="scroll-right-p">{props.announcement}</p >;
     }

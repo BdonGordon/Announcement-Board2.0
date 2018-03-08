@@ -115,6 +115,7 @@
     animation-name: scroll-right;
     animation-duration: 10s;
     animation-iteration-count: inherit;
+    animation-timing-function: linear;
 }
 
 @keyframes scroll-right {
