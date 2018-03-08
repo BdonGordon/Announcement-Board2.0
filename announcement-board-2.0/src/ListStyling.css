@@ -113,8 +113,8 @@
     transform: translateX(-100%);
     /* Apply animation to this element  scroll-right 10s linear infinite;*/
     animation-name: scroll-right;
-    animation-duration: 5s;
-    animation-iteration-count: 2;
+    animation-duration: 10s;
+    animation-iteration-count: inherit;
 }
 
 @keyframes scroll-right {

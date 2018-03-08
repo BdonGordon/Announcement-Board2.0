@@ -21,13 +21,13 @@ const initialDuration: Duration = {
 const initialState: MessageBoardProps.IState = {
     timeStamp: '',
     message: '',
-    isCaps: false,
-    isCycle: true,
+    isCaps: false, //is caps or not... self-explanatory
+    isCycle: true, //toggle the visibility of "Minutes", "Hours", and "Days" beside the NUMBER input
     lifeType: initialCycle.type, //initialize lifeType to "cycle" 
-    durationType: "Minutes",
-    lifeLength: '',
+    durationType: "Minutes", //for LifeType Duration 
+    lifeLength: '', //the number that is set in the NUMBER input
     canPost: true, //TRUE === Message input IS DISABLED && FALSE === Message input is ENABLED
-    isValid: true
+    isValid: true //follows character input restrictions (if any)
 };
 
 class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoardProps.IState> {
@@ -261,12 +261,11 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                     <button className="submit-button" onClick={this.handleEdit}> Enter Announcement</button>
                 </div>
                 <div className="announcement-strip">
-                    <UpdateLabel posted={this.state.canPost} announcement={this.state.message} caps={this.state.isCaps} />
+                    <UpdateLabel posted={this.state.canPost} announcement={this.state.message} caps={this.state.isCaps} cycle={this.state.lifeLength} />
                 </div>
 
                 <div className="announcement-list">
                     <MessagesManager />
-                    <Testing />
                 </div>
 
             </div>
@@ -279,34 +278,9 @@ function UpdateLabel(props: any) {
         if (props.caps) {
             return <label className="label3-announcement-caps">{props.announcement}</label>;
         }
-        return <p style={scrollRight}>{props.announcement}</p>;
-       // return <p style={scrollRight}>{props.announcenment}</p>;
-        //return <p className="scroll-right-p">{props.announcement}</p>;
-        //className="label2-announcement"
+        return <p style={{ animationIterationCount: props.cycle }} className="scroll-right-p">{props.announcement}</p >;
     }
     return null;
-}
-
-const divStyle = {
-    color: 'green'
-};
-
-const scrollRight = {
-    color: 'blue',
-    position: 'absolute' as 'absolute',
-    width: '100%',
-    height: '100%',
-    margin: 0,
-    lineHeight: '50px',
-    textAlign: 'center',
-    transform: 'translate(-100%)',
-    animationName: 'scroll-right',
-    animationDuration: '10s',
-    animationIterationCount: '2'
-};
-
-function Testing() {
-    return <p style={scrollRight}>Word</p>;
 }
 
 export default MessageBoard;
