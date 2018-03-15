@@ -5,6 +5,7 @@ import MessageBoardContainer from '../containers/MessageBoardContainer';
 import { IMessageBoard, Cycle, Duration } from '../../../models/MessageBoard';
 import MessagesManager from '../containers/MessagesManagerContainer';
 import MessageBoardClock from './MessageBoardClock';
+import MessageDisplay from '../containers/MessageDisplayContainer';
 
 type LifeType = Cycle | Duration;
 
@@ -262,7 +263,10 @@ class MessageBoard extends React.Component<MessageBoardProps.IProps, MessageBoar
                     <button className="submit-button" onClick={this.handleEdit}> Enter Announcement</button>
                 </div>
                 <div className="announcement-strip">
+                    <MessageDisplay/>
+                    {/*
                     <UpdateLabel posted={this.state.canPost} announcement={this.state.message} caps={this.state.isCaps} cycle={this.state.lifeLength} />
+                    */}
                 </div>
 
                 <div className="announcement-list">

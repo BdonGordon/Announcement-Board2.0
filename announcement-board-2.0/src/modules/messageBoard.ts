@@ -1,7 +1,7 @@
-﻿import { IMessageBoard, MessageBoardAction, MessagesBoardAction } from '../models/MessageBoard';
+﻿import { IMessageBoard, MessageBoardAction, MessagesBoardAction, MessageBoardEditAction } from '../models/MessageBoard';
 
 export const ANNOUNCEMENT_POST = 'ANNOUNCEMENT_POST';
-export const ANNOUNCEMENT_STORE = 'ANNOUNCEMENT_STORE';
+export const ANNOUNCEMENT_EDIT = 'ANNOUNCEMENT_EDIT';
 export const ANNOUNCEMENT_REMOVE = 'ANNOUNCEMENT_REMOVE';
 
 export interface IMessageBoardState {
@@ -24,7 +24,7 @@ export function addMessageBoard(messageBoard: IMessageBoard): MessageBoardAction
 }
 
 export function deleteMessageBoard(messageBoard: IMessageBoard): MessageBoardAction {
-    console.log(messageBoard.message + " && " + messageBoard.timeStamp);
+    console.log("Message '" + messageBoard.message + "' was deleted");
 
     return {
         type: ANNOUNCEMENT_REMOVE,
@@ -34,7 +34,7 @@ export function deleteMessageBoard(messageBoard: IMessageBoard): MessageBoardAct
     };
 }
 
-type MessageBoardActions = MessageBoardAction & MessagesBoardAction;
+type MessageBoardActions = MessageBoardAction & MessagesBoardAction & MessageBoardEditAction;
 
 /**
  * Reducer
@@ -61,7 +61,13 @@ export function messageBoardReducer(state: IMessageBoardState = initialState, ac
                 message: action.payload,
                 messagesBoard: newMessagesBoard
             });
-            
+
+        case ANNOUNCEMENT_EDIT:
+            let editedMessage: string = action.payload.newMessage;
+
+            return Object.assign({}, state, {
+                message: editedMessage
+            });
 
         default:
             return state;

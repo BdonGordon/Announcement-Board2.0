@@ -6,7 +6,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    background-color: coral;
+    background-color: #E25F02;
     height: 400px;
     width: 400px;
     text-align: left;
@@ -69,12 +69,13 @@
 }
 
 .msgboard-list-div {
-    background-color: antiquewhite;
     width: 50%;
     height: 25px;
     text-align: left;
     padding-left: 15px;
     padding-top: 4px;
+    margin-bottom: 25px;
+    
 }
 
 .p-inline-msgboard {
@@ -97,7 +98,8 @@
     background-color: cornsilk;
     margin-top: 80px;
     padding-top: 15px;
-    height: 50px;
+    padding-bottom: 15px;
+    height: 80px;
     overflow: hidden;
     position: relative;
 }

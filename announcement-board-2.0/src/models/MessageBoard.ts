@@ -7,7 +7,7 @@ export interface IMessageBoard {
     timeStamp: string;
     message: string;
     caps?: boolean;
-    lifeType?: LifeType;
+    lifeType?: LifeType; //this is pretty much useless since I can't access the cycleNo, durationType/durationTime with it 
 }
 
 export interface Cycle {
@@ -25,6 +25,13 @@ export interface MessageBoardAction extends AnyAction {
     error?: boolean;
     payload: {
         announcement: IMessageBoard;
+    };
+}
+
+export interface MessageBoardEditAction extends AnyAction {
+    error?: boolean;
+    payload: {
+        newMessage: string;
     };
 }
 
